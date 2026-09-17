@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
+    <title>Créer un compte</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,18 +13,23 @@
 
         <form id="formulaire">
 
-            <h1>Inscription</h1>
+            <div class="entete">
+                <span class="badge">NOUVEAU COMPTE</span>
+                <h1>Créer votre compte</h1>
+                <p>Quelques informations et c'est parti.</p>
+            </div>
 
             <p id="message"></p>
 
             <label for="login">Login</label>
-            <input type="text" id="login" required>
+            <input type="text" id="login" minlength="3" autocomplete="username" placeholder="Ex. aeaeaz48" required>
+            <small>3 caractères minimum</small>
 
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" required>
+            <input type="password" id="password" autocomplete="new-password" required>
 
             <label for="confirmation">Confirmation du mot de passe</label>
-            <input type="password" id="confirmation" required>
+            <input type="password" id="confirmation" autocomplete="new-password" required>
 
             <label for="nom">Nom</label>
             <input type="text" id="nom" required>
@@ -39,80 +44,38 @@
             <input type="email" id="email" required>
 
             <label for="telephone">Téléphone</label>
-            <input type="text" id="telephone" required>
+            <input type="tel" id="telephone" inputmode="numeric" minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="Ex. 0612345678" required>
+            <small>10 chiffres exactement</small>
 
             <label for="dateNaissance">Date de naissance</label>
             <input type="date" id="dateNaissance" required>
 
-            <button type="submit">S'inscrire</button>
+            <button type="submit">Créer mon compte <span aria-hidden="true">→</span></button>
 
         </form>
 
 
         <div id="recapitulatif">
 
-            <h1>Inscription réussie</h1>
+            <div class="success-icon" aria-hidden="true">✓</div>
+            <span class="badge badge-success">INSCRIPTION VALIDÉE</span>
+            <h1>Bienvenue !</h1>
+            <p class="intro-recap">Votre compte a bien été créé. Voici les informations enregistrées.</p>
 
-            <p><strong>Login :</strong> <span id="recapLogin"></span></p>
-            <p><strong>Nom :</strong> <span id="recapNom"></span></p>
-            <p><strong>Prénom :</strong> <span id="recapPrenom"></span></p>
-            <p><strong>Adresse :</strong> <span id="recapAdresse"></span></p>
-            <p><strong>Email :</strong> <span id="recapEmail"></span></p>
-            <p><strong>Téléphone :</strong> <span id="recapTelephone"></span></p>
-            <p><strong>Date de naissance :</strong> <span id="recapDate"></span></p>
+            <div class="recap-grid">
+                <p><strong>Login</strong><span id="recapLogin"></span></p>
+                <p><strong>Nom</strong><span id="recapNom"></span></p>
+                <p><strong>Prénom</strong><span id="recapPrenom"></span></p>
+                <p><strong>Adresse</strong><span id="recapAdresse"></span></p>
+                <p><strong>Email</strong><span id="recapEmail"></span></p>
+                <p><strong>Téléphone</strong><span id="recapTelephone"></span></p>
+                <p><strong>Date de naissance</strong><span id="recapDate"></span></p>
+            </div>
 
         </div>
 
     </div>
 
-    <script>
-        const formulaire = document.getElementById("formulaire");
-        const message = document.getElementById("message");
-        const boutonInscription = document.querySelector("button[type='submit']");
-        const recapitulatif = document.getElementById("recapitulatif");
-
-        boutonInscription.addEventListener("click", function(event) {
-            event.preventDefault();
-
-            let login = document.getElementById("login").value;
-            let password = document.getElementById("password").value;
-            let confirmation = document.getElementById("confirmation").value;
-            let nom = document.getElementById("nom").value;
-            let prenom = document.getElementById("prenom").value;
-            let adresse = document.getElementById("adresse").value;
-            let email = document.getElementById("email").value;
-            let telephone = document.getElementById("telephone").value;
-            let date = document.getElementById("dateNaissance").value;
-
-            if (login === "" || password === "" || confirmation === "" ||
-                nom === "" || prenom === "" || adresse === "" ||
-                email === "" || telephone === "" || date === "") {
-                message.textContent = "Veuillez remplir tous les champs.";
-                return;
-            }
-
-            if (!email.includes("@")) {
-                message.textContent = "Email invalide.";
-                return;
-            }
-
-            if (password !== confirmation) {
-                message.textContent = "Les mots de passe ne correspondent pas.";
-                return;
-            }
-
-            document.getElementById("recapLogin").textContent = login;
-            document.getElementById("recapNom").textContent = nom;
-            document.getElementById("recapPrenom").textContent = prenom;
-            document.getElementById("recapAdresse").textContent = adresse;
-            document.getElementById("recapEmail").textContent = email;
-            document.getElementById("recapTelephone").textContent = telephone;
-            document.getElementById("recapDate").textContent = date;
-
-            formulaire.style.display = "none";
-            recapitulatif.style.display = "block";
-            message.textContent = "";
-        });
-    </script>
+    <script src="index.js"></script>
 </body>
 </html>
