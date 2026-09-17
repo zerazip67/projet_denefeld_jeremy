@@ -1,8 +1,9 @@
 const formulaire = document.getElementById("formulaire");
 const message = document.getElementById("message");
+const boutonInscription = document.querySelector("button[type='submit']");
+const recapitulatif = document.getElementById("recapitulatif");
 
-formulaire.addEventListener("submit", function(event) {
-
+boutonInscription.addEventListener("click", function(event) {
     event.preventDefault();
 
     let login = document.getElementById("login").value;
@@ -15,7 +16,6 @@ formulaire.addEventListener("submit", function(event) {
     let telephone = document.getElementById("telephone").value;
     let date = document.getElementById("dateNaissance").value;
 
-    // Vérification des champs
     if (login == "" || password == "" || confirmation == "" ||
         nom == "" || prenom == "" || adresse == "" ||
         email == "" || telephone == "" || date == "") {
@@ -24,19 +24,16 @@ formulaire.addEventListener("submit", function(event) {
         return;
     }
 
-    // Vérification de l'email
     if (!email.includes("@")) {
         message.textContent = "Email invalide.";
         return;
     }
 
-    // Vérification du mot de passe
     if (password != confirmation) {
         message.textContent = "Les mots de passe ne correspondent pas.";
         return;
     }
 
-    // Affichage du récapitulatif
     document.getElementById("recapLogin").textContent = login;
     document.getElementById("recapNom").textContent = nom;
     document.getElementById("recapPrenom").textContent = prenom;
@@ -46,6 +43,7 @@ formulaire.addEventListener("submit", function(event) {
     document.getElementById("recapDate").textContent = date;
 
     formulaire.style.display = "none";
-    document.getElementById("recapitulatif").style.display = "block";
+    recapitulatif.style.display = "block";
+    message.textContent = "";
 });
 ```
