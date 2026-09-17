@@ -1,1 +1,70 @@
-<h1>test</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <form id="formulaire">
+
+            <h1>Inscription</h1>
+
+            <p id="message"></p>
+
+            <label for="login">Login</label>
+            <input type="text" id="login" required>
+
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" required>
+
+            <label for="confirmation">Confirmation du mot de passe</label>
+            <input type="password" id="confirmation" required>
+
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" required>
+
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" required>
+
+            <label for="adresse">Adresse</label>
+            <input type="text" id="adresse" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+
+            <label for="telephone">Téléphone</label>
+            <input type="text" id="telephone" required>
+
+            <label for="dateNaissance">Date de naissance</label>
+            <input type="date" id="dateNaissance" required>
+
+            <button type="submit">S'inscrire</button>
+
+        </form>
+
+
+        <div id="recapitulatif">
+
+            <h1>Inscription réussie</h1>
+
+            <p><strong>Login :</strong> <span id="recapLogin"></span></p>
+            <p><strong>Nom :</strong> <span id="recapNom"></span></p>
+            <p><strong>Prénom :</strong> <span id="recapPrenom"></span></p>
+            <p><strong>Adresse :</strong> <span id="recapAdresse"></span></p>
+            <p><strong>Email :</strong> <span id="recapEmail"></span></p>
+            <p><strong>Téléphone :</strong> <span id="recapTelephone"></span></p>
+            <p><strong>Date de naissance :</strong> <span id="recapDate"></span></p>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
