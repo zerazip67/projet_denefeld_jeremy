@@ -1,0 +1,136 @@
+// Variables
+$primary: #6366f1;
+$primary-hover: #4f46e5;
+$bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+$card-bg: rgba(255, 255, 255, 0.05);
+$card-border: rgba(255, 255, 255, 0.1);
+$text-main: #f8fafc;
+$text-muted: #94a3b8;
+$error-color: #f87171;
+
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: $bg-gradient;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  padding: 1.5rem;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 440px;
+  padding: 2.5rem;
+  background: $card-bg;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid $card-border;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+
+  h2 {
+    color: $text-main;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    letter-spacing: -0.5px;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+
+  label {
+    color: $text-muted;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    transition: color 0.2s ease;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    color: $text-main;
+    font-size: 0.95rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.25s ease;
+
+    &::placeholder {
+      color: rgba(148, 163, 184, 0.5);
+    }
+
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    // Style visuel en cas d'erreur
+    &.ng-invalid.ng-touched {
+      border-color: rgba(248, 113, 113, 0.5);
+    }
+  }
+
+  .error-msg {
+    color: $error-color;
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    animation: fadeIn 0.2s ease-in-out;
+  }
+}
+
+button {
+  width: 100%;
+  padding: 0.85rem;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, $primary 0%, #8b5cf6 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+  transition: all 0.25s ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.3);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
