@@ -1,0 +1,63 @@
+<div class="form-container">
+  <h2>Inscription</h2>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit()">
+
+    <!-- Login -->
+    <div class="form-group">
+      <label for="login">Login :</label>
+      <input type="text" id="login" name="login" [(ngModel)]="formData.login" #login="ngModel" required>
+      @if (login.invalid && login.touched) {
+        <small class="error-msg">Login obligatoire</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" name="nom" [(ngModel)]="formData.nom" #nom="ngModel" required>
+      @if (nom.invalid && nom.touched) {
+        <small class="error-msg">Nom obligatoire</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="prenom">Prénom :</label>
+      <input type="text" id="prenom" name="prenom" [(ngModel)]="formData.prenom" #prenom="ngModel" required>
+      @if (prenom.invalid && prenom.touched) {
+        <small class="error-msg">Prénom obligatoire</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email :</label>
+      <input type="email" id="email" name="email" [(ngModel)]="formData.email" #email="ngModel" required email>
+      @if (email.invalid && email.touched) {
+        <small class="error-msg">Email invalide ou obligatoire</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="password">Mot de passe :</label>
+      <input type="password" id="password" name="password" [(ngModel)]="formData.password" #pass="ngModel" minlength="8" required>
+      @if (pass.invalid && pass.touched) {
+        <small class="error-msg">Mot de passe obligatoire</small>
+      }
+      @else if (pass.errors?.['minlength']) {
+        <small class="error-msg">8 caractères minimum requis</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirmation du mot de passe :</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="formData.confirmPassword" #confirm="ngModel" required>
+      @if (confirm.touched && formData.password !== formData.confirmPassword) {
+        <small class="error-msg">Les mots de passe ne correspondent pas</small>
+      }
+    </div>
+
+    <button type="submit" [disabled]="f.invalid || formData.password !== formData.confirmPassword">
+      S'inscrire
+    </button>
+
+  </form>
+</div>
