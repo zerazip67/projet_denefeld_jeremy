@@ -1,0 +1,23 @@
+<main class="page">
+  <header>
+    <div class="logo">E</div>
+    <div>
+      <p class="surtitre">ECOSIGNAL · ENVIRONNEMENT</p>
+      <h1>Declarer une pollution</h1>
+      <p class="intro">Chaque signalement compte.</p>
+    </div>
+  </header>
+
+  @if (pollution === null) {
+    <app-pollution-form
+      (declarationEnvoyee)="afficherRecap($event)">
+    </app-pollution-form>
+  } @else {
+    <app-pollution-recap
+      [pollution]="pollution"
+      (nouvelleDeclaration)="nouvelleDeclaration()">
+    </app-pollution-recap>
+  }
+
+  <footer>EcoSignal · Agissons pour notre environnement.</footer>
+</main>

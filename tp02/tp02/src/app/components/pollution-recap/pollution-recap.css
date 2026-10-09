@@ -1,0 +1,86 @@
+.carte {
+  padding: 30px;
+  background: white;
+  border: 1px solid #dfe8e0;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px #183e2b0d;
+}
+
+.etape {
+  color: #d17a35;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.intro {
+  color: #68766e;
+}
+
+.resume {
+  margin: 25px 0;
+}
+
+.libelle {
+  margin-bottom: 6px;
+  color: #68766e;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+.grille {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f2f5ef;
+}
+
+.grille p:not(.libelle) {
+  overflow-wrap: anywhere;
+}
+
+.description {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  max-height: 350px;
+  border-radius: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 9px;
+  background: #176b50;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #10543e;
+}
+
+@media (max-width: 500px) {
+  .carte {
+    padding: 20px;
+  }
+
+  .grille {
+    grid-template-columns: 1fr;
+  }
+}

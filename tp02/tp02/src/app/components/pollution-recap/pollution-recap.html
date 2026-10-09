@@ -1,0 +1,44 @@
+<section class="carte">
+  <p class="etape">ETAPE 2</p>
+  <h2>Signalement valide</h2>
+  <p class="intro">Voici les informations de votre declaration.</p>
+
+  <div class="resume">
+    <p class="libelle">TITRE</p>
+    <h3>{{ pollution.titre }}</h3>
+
+    <div class="grille">
+      <div>
+        <p class="libelle">TYPE</p>
+        <p>{{ pollution.type }}</p>
+      </div>
+
+      <div>
+        <p class="libelle">DATE</p>
+        <p>{{ pollution.date }}</p>
+      </div>
+
+      <div>
+        <p class="libelle">LIEU</p>
+        <p>{{ pollution.lieu }}</p>
+      </div>
+
+      <div>
+        <p class="libelle">COORDONNEES</p>
+        <p>{{ pollution.latitude }}, {{ pollution.longitude }}</p>
+      </div>
+    </div>
+
+    <p class="libelle">DESCRIPTION</p>
+    <p class="description">{{ pollution.description }}</p>
+
+    @if (pollution.photo) {
+      <p class="libelle">PHOTO</p>
+      <img [src]="pollution.photo" alt="Photo du signalement">
+    }
+  </div>
+
+  <button type="button" (click)="nouvelleDeclaration.emit()">
+    Faire un autre signalement
+  </button>
+</section>

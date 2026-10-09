@@ -1,0 +1,55 @@
+.page {
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 15px;
+  background: #176b50;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.surtitre {
+  color: #176b50;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+h1 {
+  margin: 5px 0;
+  font-size: 32px;
+}
+
+.intro {
+  color: #68766e;
+  margin: 5px 0;
+}
+
+footer {
+  margin-top: 25px;
+  text-align: center;
+  color: #68766e;
+  font-size: 12px;
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 24px;
+  }
+}

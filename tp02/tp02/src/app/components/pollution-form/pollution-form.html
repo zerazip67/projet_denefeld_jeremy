@@ -1,0 +1,86 @@
+<section class="carte">
+  <p class="etape">ETAPE 1</p>
+  <h2>Informations du signalement</h2>
+
+  <form [formGroup]="formulaire" (ngSubmit)="envoyer()">
+    <label>
+      Titre *
+      <input type="text" formControlName="titre" placeholder="Ex. Dechets pres d'une riviere">
+
+      @if (formulaire.controls.titre.touched && formulaire.controls.titre.invalid) {
+        <small>Le titre est obligatoire.</small>
+      }
+    </label>
+
+    <label>
+      Type de pollution *
+      <select formControlName="type">
+        <option value="">Choisir un type</option>
+        <option value="Plastique">Plastique</option>
+        <option value="Chimique">Chimique</option>
+        <option value="Depot sauvage">Depot sauvage</option>
+        <option value="Eau">Eau</option>
+        <option value="Air">Air</option>
+        <option value="Autre">Autre</option>
+      </select>
+
+      @if (formulaire.controls.type.touched && formulaire.controls.type.invalid) {
+        <small>Choisissez un type de pollution.</small>
+      }
+    </label>
+
+    <label class="large">
+      Description *
+      <textarea formControlName="description" rows="4" placeholder="Decrivez la pollution observee..."></textarea>
+
+      @if (formulaire.controls.description.touched && formulaire.controls.description.invalid) {
+        <small>La description est obligatoire.</small>
+      }
+    </label>
+
+    <label>
+      Date d'observation *
+      <input type="date" formControlName="date">
+
+      @if (formulaire.controls.date.touched && formulaire.controls.date.invalid) {
+        <small>La date est obligatoire.</small>
+      }
+    </label>
+
+    <label>
+      Lieu *
+      <input type="text" formControlName="lieu" placeholder="Ville, rue, endroit">
+
+      @if (formulaire.controls.lieu.touched && formulaire.controls.lieu.invalid) {
+        <small>Le lieu est obligatoire.</small>
+      }
+    </label>
+
+    <label>
+      Latitude *
+      <input type="number" formControlName="latitude" min="-90" max="90" step="any" placeholder="48.5734">
+
+      @if (formulaire.controls.latitude.touched && formulaire.controls.latitude.invalid) {
+        <small>Latitude obligatoire, entre -90 et 90.</small>
+      }
+    </label>
+
+    <label>
+      Longitude *
+      <input type="number" formControlName="longitude" min="-180" max="180" step="any" placeholder="7.7521">
+
+      @if (formulaire.controls.longitude.touched && formulaire.controls.longitude.invalid) {
+        <small>Longitude obligatoire, entre -180 et 180.</small>
+      }
+    </label>
+
+    <label class="large">
+      URL de la photo (facultatif)
+      <input type="url" formControlName="photo" placeholder="https://exemple.fr/photo.jpg">
+    </label>
+
+    <p class="note">* Champs obligatoires</p>
+
+    <button type="submit">Valider le signalement</button>
+  </form>
+</section>
