@@ -41,6 +41,14 @@ h1 {
   margin: 5px 0;
 }
 
+.pollution-section {
+  margin-top: 48px;
+}
+
+.pollution-section h2 {
+  margin-bottom: 20px;
+}
+
 footer {
   margin-top: 25px;
   text-align: center;

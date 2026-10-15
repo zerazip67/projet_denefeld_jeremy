@@ -1,23 +1,28 @@
 <main class="page">
   <header>
-    <div class="logo">E</div>
     <div>
-      <p class="surtitre">ECOSIGNAL · ENVIRONNEMENT</p>
-      <h1>Declarer une pollution</h1>
-      <p class="intro">Chaque signalement compte.</p>
+      <h1>Service client Angular</h1>
+      <p class="intro">
+        {{ inscrit ? 'Vous pouvez maintenant ajouter une déclaration de pollution.' : "Inscrivez-vous pour accéder à l'ajout de pollution." }}
+      </p>
     </div>
   </header>
 
-  @if (pollution === null) {
-    <app-pollution-form
-      (declarationEnvoyee)="afficherRecap($event)">
-    </app-pollution-form>
+  @if (!inscrit) {
+    <app-signup-form (inscriptionReussie)="terminerInscription()"></app-signup-form>
   } @else {
-    <app-pollution-recap
-      [pollution]="pollution"
-      (nouvelleDeclaration)="nouvelleDeclaration()">
-    </app-pollution-recap>
+    <section class="pollution-section">
+      <h2>Déclaration de pollution</h2>
+      @if (pollution === null) {
+        <app-pollution-form
+          (declarationEnvoyee)="afficherRecap($event)">
+        </app-pollution-form>
+      } @else {
+        <app-pollution-recap
+          [pollution]="pollution"
+          (nouvelleDeclaration)="nouvelleDeclaration()">
+        </app-pollution-recap>
+      }
+    </section>
   }
-
-  <footer>EcoSignal · Agissons pour notre environnement.</footer>
 </main>
