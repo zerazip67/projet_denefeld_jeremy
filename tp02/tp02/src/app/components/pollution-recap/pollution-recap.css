@@ -1,20 +1,20 @@
 .carte {
-  padding: 30px;
-  background: white;
-  border: 1px solid #dfe8e0;
-  border-radius: 18px;
-  box-shadow: 0 8px 25px #183e2b0d;
+  padding: 32px 36px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--green);
+  box-shadow: 7px 7px 0 #202b250d;
 }
 
 .etape {
-  color: #d17a35;
+  color: var(--clay);
   font-size: 12px;
   font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 1.6px;
 }
 
 .intro {
-  color: #68766e;
+  color: var(--muted);
 }
 
 .resume {
@@ -23,14 +23,17 @@
 
 .libelle {
   margin-bottom: 6px;
-  color: #68766e;
+  color: var(--muted);
   font-size: 11px;
   font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
 }
 
 h3 {
-  font-size: 24px;
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 27px;
+  font-weight: 500;
 }
 
 .grille {
@@ -39,8 +42,8 @@ h3 {
   gap: 15px;
   margin: 20px 0;
   padding: 20px;
-  border-radius: 12px;
-  background: #f2f5ef;
+  border-left: 2px solid var(--clay);
+  background: #eeede5;
 }
 
 .grille p:not(.libelle) {
@@ -56,28 +59,29 @@ img {
   display: block;
   max-width: 100%;
   max-height: 350px;
-  border-radius: 10px;
+  border: 1px solid var(--line);
 }
 
 button {
   width: 100%;
-  padding: 14px;
+  min-height: 48px;
+  padding: 12px 18px;
   border: none;
-  border-radius: 9px;
-  background: #176b50;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
+  border-radius: 2px;
+  background: var(--green);
+  color: #fffefa;
+  font-size: 14px;
+  font-weight: 650;
   cursor: pointer;
 }
 
 button:hover {
-  background: #10543e;
+  background: var(--green-dark);
 }
 
 @media (max-width: 500px) {
   .carte {
-    padding: 20px;
+    padding: 25px 22px;
   }
 
   .grille {

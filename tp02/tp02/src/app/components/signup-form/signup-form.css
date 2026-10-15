@@ -1,70 +1,88 @@
 .signup-card {
-  padding: 30px;
-  background: white;
-  border: 1px solid #dfe8e0;
-  border-radius: 18px;
-  box-shadow: 0 8px 25px #183e2b0d;
+  position: relative;
+  padding: 34px 38px 38px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--green);
+  box-shadow: 7px 7px 0 #202b250d;
 }
 
 .eyebrow {
   margin: 0;
-  color: #d17a35;
+  color: var(--clay);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.6px;
 }
 
 h2 {
-  margin: 8px 0 24px;
+  margin: 8px 0 26px;
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
 }
 
 form {
   display: grid;
-  gap: 18px;
+  gap: 20px;
 }
 
 label {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 600;
+  gap: 7px;
+  color: #38463d;
+  font-size: 13px;
+  font-weight: 650;
 }
 
 input {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #d5dfd7;
-  border-radius: 9px;
-  background: #fafcf9;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #c9cec3;
+  border-radius: 2px;
+  background: #fffefa;
   font: inherit;
+  font-size: 15px;
+  line-height: 1.4;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
 }
 
 input:focus {
-  outline: 2px solid #b4d9c4;
-  border-color: #176b50;
+  outline: 2px solid transparent;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px #285b4620;
 }
 
 small,
 .error {
-  color: #c0392b;
+  color: var(--error);
   font-size: 12px;
   font-weight: normal;
 }
 
 button {
-  padding: 14px;
+  min-height: 48px;
+  margin-top: 4px;
+  padding: 12px 18px;
   border: none;
-  border-radius: 9px;
-  background: #176b50;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
+  border-radius: 2px;
+  background: var(--green);
+  color: #fffefa;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.2px;
   cursor: pointer;
+  transition: background 140ms ease, transform 140ms ease;
 }
 
 button:hover:not(:disabled) {
-  background: #10543e;
+  background: var(--green-dark);
+  transform: translateY(-1px);
 }
 
 button:disabled {
@@ -74,14 +92,17 @@ button:disabled {
 
 .feedback {
   margin: 18px 0 0;
+  padding: 10px 12px;
+  border-left: 3px solid currentColor;
+  background: #285b460a;
 }
 
 .success {
-  color: #176b50;
+  color: var(--green-dark);
 }
 
 @media (max-width: 600px) {
   .signup-card {
-    padding: 20px;
+    padding: 26px 22px 28px;
   }
 }
