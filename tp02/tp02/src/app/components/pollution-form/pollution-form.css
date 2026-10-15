@@ -1,0 +1,98 @@
+.carte {
+  padding: 30px;
+  background: white;
+  border: 1px solid #dfe8e0;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px #183e2b0d;
+}
+
+.etape {
+  color: #d17a35;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+h2 {
+  margin-bottom: 25px;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.large {
+  grid-column: 1 / -1;
+}
+
+input, select, textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #d5dfd7;
+  border-radius: 9px;
+  background: #fafcf9;
+  font: inherit;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #b4d9c4;
+  border-color: #176b50;
+}
+
+textarea {
+  resize: vertical;
+}
+
+small {
+  color: #c0392b;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.note {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #68766e;
+  font-size: 12px;
+}
+
+button {
+  grid-column: 1 / -1;
+  padding: 14px;
+  border: none;
+  border-radius: 9px;
+  background: #176b50;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #10543e;
+}
+
+@media (max-width: 600px) {
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  .large, .note, button {
+    grid-column: auto;
+  }
+
+  .carte {
+    padding: 20px;
+  }
+}
