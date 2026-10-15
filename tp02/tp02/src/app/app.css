@@ -1,55 +1,53 @@
 .page {
-  max-width: 850px;
-  margin: 40px auto;
-  padding: 0 20px;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 54px 32px 80px;
 }
 
 header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 30px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 55px;
-  height: 55px;
-  border-radius: 15px;
-  background: #176b50;
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.surtitre {
-  color: #176b50;
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  margin-bottom: 34px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
 }
 
 h1 {
-  margin: 5px 0;
-  font-size: 32px;
+  margin: 0;
+  color: var(--green-dark);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(30px, 5vw, 42px);
+  font-weight: 500;
+  letter-spacing: -1.2px;
+  line-height: 1.12;
 }
 
 .intro {
-  color: #68766e;
-  margin: 5px 0;
+  max-width: 54ch;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.pollution-section {
+  margin-top: 38px;
+}
+
+.pollution-section h2 {
+  margin-bottom: 18px;
+  color: var(--green-dark);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: 500;
 }
 
 footer {
   margin-top: 25px;
   text-align: center;
-  color: #68766e;
+  color: var(--muted);
   font-size: 12px;
 }
 
-@media (max-width: 500px) {
-  h1 {
-    font-size: 24px;
+@media (max-width: 600px) {
+  .page {
+    padding: 32px 22px 56px;
   }
 }

@@ -1,16 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
-
 * {
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light;
+  --paper: #f3f1e9;
+  --surface: #fbfaf6;
+  --ink: #202b25;
+  --muted: #68736a;
+  --green: #285b46;
+  --green-dark: #1d4635;
+  --line: #d8d8cc;
+  --clay: #b35e3d;
+  --error: #a43f32;
+}
+
 body {
   margin: 0;
-  background: #f2f5ef;
-  color: #20372b;
-  font-family: 'DM Sans', Arial, sans-serif;
+  background:
+    linear-gradient(90deg, transparent 0 39px, #b35e3d18 39px 40px, transparent 40px),
+    var(--paper);
+  color: var(--ink);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  line-height: 1.5;
 }
 
 button, input, select, textarea {
   font-family: inherit;
+}
+
+button, input, select, textarea {
+  color: inherit;
+}
+
+::selection {
+  background: #d4dfd1;
+  color: var(--ink);
 }
