@@ -1,16 +1,18 @@
 .carte {
-  padding: 32px 36px;
+  position: relative;
+  padding: 36px;
+  border-radius: 4px;
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--green);
-  box-shadow: 7px 7px 0 #202b250d;
+  border: 1px solid #dfe3d9;
+  border-top: 4px solid var(--acid);
+  box-shadow: var(--shadow);
 }
 
 .etape {
   margin-top: 0;
-  color: var(--clay);
-  font-size: 12px;
-  font-weight: bold;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 800;
   letter-spacing: 1.6px;
 }
 
@@ -18,8 +20,9 @@ h2 {
   margin: 8px 0 25px;
   color: var(--ink);
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 500;
+  letter-spacing: -0.6px;
 }
 
 form {
@@ -32,9 +35,10 @@ label {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  color: #38463d;
-  font-size: 13px;
-  font-weight: 650;
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25px;
 }
 
 .large {
@@ -43,18 +47,19 @@ label {
 
 input, select, textarea {
   width: 100%;
-  min-height: 44px;
-  padding: 10px 12px;
-  border: 1px solid #c9cec3;
-  border-radius: 2px;
-  background: #fffefa;
-  font: 400 14px/1.4 'Segoe UI', Arial, sans-serif;
+  min-height: 46px;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #fff;
+  font: 400 14px/1.4 'Aptos', 'Segoe UI', Arial, sans-serif;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 input:focus, select:focus, textarea:focus {
-  outline: 2px solid transparent;
+  outline: none;
   border-color: var(--green);
-  box-shadow: 0 0 0 3px #285b4620;
+  box-shadow: 0 0 0 3px #28554114;
 }
 
 textarea {
@@ -78,18 +83,21 @@ button {
   grid-column: 1 / -1;
   min-height: 48px;
   padding: 12px 18px;
-  border: none;
-  border-radius: 2px;
+  border: 1px solid var(--green);
+  border-radius: 3px;
   background: var(--green);
-  color: #fffefa;
+  color: var(--surface);
   font-size: 14px;
   font-weight: 650;
   letter-spacing: 0.2px;
   cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
 button:hover {
   background: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 16px #183b2e20;
 }
 
 @media (max-width: 600px) {
@@ -102,6 +110,6 @@ button:hover {
   }
 
   .carte {
-    padding: 25px 22px;
+    padding: 26px 22px;
   }
 }

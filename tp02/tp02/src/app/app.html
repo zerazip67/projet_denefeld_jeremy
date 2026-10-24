@@ -1,9 +1,9 @@
 <main class="page">
   <header>
     <div>
-      <h1>Service client Angular</h1>
+      <h1>Déclarer une pollution</h1>
       <p class="intro">
-        {{ inscrit ? 'Vous pouvez maintenant ajouter une déclaration de pollution.' : "Inscrivez-vous pour accéder à l'ajout de pollution." }}
+        {{ inscrit ? 'Gérez les déclarations de pollution.' : "Inscrivez-vous pour accéder à la gestion des pollutions." }}
       </p>
     </div>
   </header>
@@ -11,17 +11,87 @@
   @if (!inscrit) {
     <app-signup-form (inscriptionReussie)="terminerInscription()"></app-signup-form>
   } @else {
-    <section class="pollution-section">
-      <h2>Déclaration de pollution</h2>
-      @if (pollution === null) {
+    <section class="pollution-section" aria-live="polite">
+      @if (erreur) {
+        <p class="error-message" role="alert">{{ erreur }}</p>
+      }
+
+      @if (pollutionSelectionnee; as pollution) {
+        <article class="carte detail">
+          <p class="etape">DETAIL DE LA POLLUTION</p>
+          <h2>{{ pollution.titre }}</h2>
+          <dl>
+            <div><dt>Type</dt><dd>{{ pollution.type }}</dd></div>
+            <div><dt>Date</dt><dd>{{ pollution.date }}</dd></div>
+            <div><dt>Lieu</dt><dd>{{ pollution.lieu }}</dd></div>
+            <div><dt>Coordonnées</dt><dd>{{ pollution.latitude }}, {{ pollution.longitude }}</dd></div>
+            <div class="description"><dt>Description</dt><dd>{{ pollution.description }}</dd></div>
+          </dl>
+          @if (pollution.photo) {
+            <p><a [href]="pollution.photo" target="_blank" rel="noopener noreferrer">Voir la photo</a></p>
+          }
+          <div class="actions">
+            <button type="button" (click)="modifierPollution(pollution)">Modifier</button>
+            <button class="secondaire" type="button" (click)="annulerEdition()">Retour à la liste</button>
+          </div>
+        </article>
+      } @else if (formulaireOuvert) {
         <app-pollution-form
-          (declarationEnvoyee)="afficherRecap($event)">
+          [pollution]="pollutionEnEdition"
+          (declarationEnvoyee)="enregistrerPollution($event)">
         </app-pollution-form>
+        <button class="secondaire retour" type="button" (click)="annulerEdition()">Annuler</button>
       } @else {
-        <app-pollution-recap
-          [pollution]="pollution"
-          (nouvelleDeclaration)="nouvelleDeclaration()">
-        </app-pollution-recap>
+        <div class="liste-entete">
+          <div>
+            <h2>Pollutions signalées</h2>
+            <p>{{ pollutions.length }} déclaration(s)</p>
+          </div>
+          <button type="button" (click)="nouvellePollution()">Ajouter une pollution</button>
+        </div>
+
+        <div class="filtres">
+          <label>
+            Rechercher
+            <input type="search" [(ngModel)]="filtreTexte" placeholder="Titre ou lieu">
+          </label>
+          <label>
+            Type
+            <select [(ngModel)]="filtreType">
+              <option value="">Tous les types</option>
+              @for (type of ['Plastique', 'Chimique', 'Depot sauvage', 'Eau', 'Air', 'Autre']; track type) {
+                <option [value]="type">{{ type }}</option>
+              }
+            </select>
+          </label>
+        </div>
+
+        @if (chargement) {
+          <p>Chargement des pollutions...</p>
+        } @else if (pollutionsFiltrees.length === 0) {
+          <p class="vide">Aucune pollution ne correspond à votre recherche.</p>
+        } @else {
+          <div class="liste">
+            @for (pollution of pollutionsFiltrees; track pollution.id) {
+              <article class="carte pollution-item">
+                <div>
+                  <span class="badge">{{ pollution.type }}</span>
+                  <h3>{{ pollution.titre }}</h3>
+                  <p>{{ pollution.lieu }} · {{ pollution.date }}</p>
+                </div>
+                <div class="actions">
+                  <button class="secondaire" type="button" (click)="afficherDetail(pollution)">Détail</button>
+                  <button class="secondaire" type="button" (click)="modifierPollution(pollution)">Modifier</button>
+                  <button class="supprimer" type="button" (click)="supprimerPollution(pollution)">Supprimer</button>
+                </div>
+              </article>
+            }
+          </div>
+        }
+      }
+
+      @if (enregistrement) {
+        <p>Enregistrement en cours...</p>
       }
     </section>
   }
