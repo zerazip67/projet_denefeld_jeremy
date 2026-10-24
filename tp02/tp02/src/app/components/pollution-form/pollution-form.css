@@ -1,34 +1,44 @@
 .carte {
-  padding: 30px;
-  background: white;
-  border: 1px solid #dfe8e0;
-  border-radius: 18px;
-  box-shadow: 0 8px 25px #183e2b0d;
+  position: relative;
+  padding: 36px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid #dfe3d9;
+  border-top: 4px solid var(--acid);
+  box-shadow: var(--shadow);
 }
 
 .etape {
-  color: #d17a35;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  margin-top: 0;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
 }
 
 h2 {
-  margin-bottom: 25px;
+  margin: 8px 0 25px;
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.6px;
 }
 
 form {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 19px 22px;
 }
 
 label {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 600;
+  gap: 7px;
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25px;
 }
 
 .large {
@@ -37,17 +47,19 @@ label {
 
 input, select, textarea {
   width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
-  border: 1px solid #d5dfd7;
-  border-radius: 9px;
-  background: #fafcf9;
-  font: inherit;
+  min-height: 46px;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #fff;
+  font: 400 14px/1.4 'Aptos', 'Segoe UI', Arial, sans-serif;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 input:focus, select:focus, textarea:focus {
-  outline: 2px solid #b4d9c4;
-  border-color: #176b50;
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px #28554114;
 }
 
 textarea {
@@ -55,7 +67,7 @@ textarea {
 }
 
 small {
-  color: #c0392b;
+  color: var(--error);
   font-size: 12px;
   font-weight: normal;
 }
@@ -63,24 +75,29 @@ small {
 .note {
   grid-column: 1 / -1;
   margin: 0;
-  color: #68766e;
+  color: var(--muted);
   font-size: 12px;
 }
 
 button {
   grid-column: 1 / -1;
-  padding: 14px;
-  border: none;
-  border-radius: 9px;
-  background: #176b50;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
+  min-height: 48px;
+  padding: 12px 18px;
+  border: 1px solid var(--green);
+  border-radius: 3px;
+  background: var(--green);
+  color: var(--surface);
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.2px;
   cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
 button:hover {
-  background: #10543e;
+  background: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 16px #183b2e20;
 }
 
 @media (max-width: 600px) {
@@ -93,6 +110,6 @@ button:hover {
   }
 
   .carte {
-    padding: 20px;
+    padding: 26px 22px;
   }
 }

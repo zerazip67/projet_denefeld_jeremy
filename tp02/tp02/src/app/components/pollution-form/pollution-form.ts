@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Pollution, PollutionInput } from '../../models/pollution';
 
 @Component({
   selector: 'app-pollution-form',
@@ -8,10 +9,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
   templateUrl: './pollution-form.html',
   styleUrl: './pollution-form.css',
 })
-export class PollutionForm {
+export class PollutionForm implements OnChanges {
   private fb = inject(FormBuilder);
 
-  @Output() declarationEnvoyee = new EventEmitter<any>();
+  @Input() pollution: Pollution | null = null;
+  @Output() declarationEnvoyee = new EventEmitter<PollutionInput>();
 
   formulaire = this.fb.group({
     titre: ['', Validators.required],
@@ -30,11 +32,28 @@ export class PollutionForm {
     photo: [''],
   });
 
+  ngOnChanges() {
+    if (this.pollution) {
+      this.formulaire.patchValue(this.pollution);
+    } else {
+      this.formulaire.reset({
+        titre: '',
+        type: '',
+        description: '',
+        date: '',
+        lieu: '',
+        latitude: null,
+        longitude: null,
+        photo: '',
+      });
+    }
+  }
+
   envoyer() {
     this.formulaire.markAllAsTouched();
 
     if (this.formulaire.valid) {
-      this.declarationEnvoyee.emit(this.formulaire.getRawValue());
+      this.declarationEnvoyee.emit(this.formulaire.getRawValue() as PollutionInput);
     }
   }
 }

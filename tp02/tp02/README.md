@@ -44,6 +44,15 @@ To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use th
 ng test
 ```
 
+## Inscription mockée
+
+L'exercice 02 ajoute un formulaire d'inscription qui utilise `SignupService` et
+`HttpClient`. L'URL de l'API est configurée dans
+`src/environments/environment.ts`. Comme aucun backend n'est disponible pour
+l'instant, `mockApi` est activé et un intercepteur renvoie une réponse HTTP 201
+pour `POST /auth/signup`. Lorsqu'un backend est prêt, configurez `apiUrl` et
+mettez `mockApi` à `false` pour envoyer la requête à ce serveur.
+
 ## Running end-to-end tests
 
 For end-to-end (e2e) testing, run:

@@ -1,16 +1,151 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
-
 * {
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light;
+  --paper: #f1f0e8;
+  --surface: #fffef8;
+  --ink: #17251f;
+  --muted: #67746b;
+  --green: #285541;
+  --green-dark: #183b2e;
+  --line: #d8ddd2;
+  --clay: #bd593b;
+  --error: #a43f32;
+  --acid: #d7f36a;
+  --shadow: 0 20px 55px #1a31200f;
+}
+
 body {
   margin: 0;
-  background: #f2f5ef;
-  color: #20372b;
-  font-family: 'DM Sans', Arial, sans-serif;
+  background:
+    radial-gradient(ellipse at 8% 12%, #d7f36a2b, transparent 28rem),
+    radial-gradient(ellipse at 92% 78%, #28554110, transparent 32rem),
+    linear-gradient(90deg, transparent 0 39px, #bd593b12 39px 40px, transparent 40px),
+    var(--paper);
+  color: var(--ink);
+  font-family: 'Aptos', 'Segoe UI', Arial, sans-serif;
+  line-height: 1.5;
 }
 
 button, input, select, textarea {
   font-family: inherit;
+}
+
+button, input, select, textarea {
+  color: inherit;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--clay);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--acid);
+  color: var(--ink);
+}
+
+app-root > .page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 48px 36px 88px;
+}
+
+app-root > .page > header {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-height: 260px;
+  margin-bottom: 46px;
+  padding: 44px 48px;
+  border: 1px solid #315b46;
+  background:
+    radial-gradient(ellipse at 88% 18%, #d7f36a25, transparent 18rem),
+    repeating-radial-gradient(ellipse at 100% 100%, transparent 0 28px, #d7f36a14 29px 30px, transparent 31px 54px),
+    linear-gradient(125deg, #183b2e, #285541 72%, #386348);
+  box-shadow: 0 18px 40px #183b2e20;
+  color: var(--surface);
+}
+
+app-root > .page > header::before {
+  position: absolute;
+  z-index: -1;
+  top: 30px;
+  right: 38px;
+  color: var(--acid);
+  content: 'FIELD NOTES   /   03';
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 2px;
+}
+
+app-root > .page > header::after {
+  position: absolute;
+  z-index: -1;
+  right: 9%;
+  bottom: -108px;
+  width: 280px;
+  height: 280px;
+  border: 1px solid #d7f36a48;
+  border-radius: 50%;
+  box-shadow: 0 0 0 22px #d7f36a0b, 0 0 0 48px #d7f36a0a, 0 0 0 76px #d7f36a09;
+  content: '';
+}
+
+app-root > .page > header > div {
+  max-width: 680px;
+}
+
+app-root > .page > header h1 {
+  max-width: 12ch;
+  margin: 0;
+  color: var(--surface);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(42px, 7vw, 76px);
+  font-weight: 400;
+  letter-spacing: -3px;
+  line-height: 0.98;
+}
+
+app-root > .page > header .intro {
+  max-width: 46ch;
+  margin: 20px 0 0;
+  color: #e1e9de;
+  font-size: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 700px) {
+  app-root > .page {
+    padding: 20px 18px 56px;
+  }
+
+  app-root > .page > header {
+    min-height: 230px;
+    margin-bottom: 32px;
+    padding: 36px 27px;
+  }
+
+  app-root > .page > header::before {
+    top: 17px;
+    right: 20px;
+    font-size: 9px;
+  }
+
+  app-root > .page > header h1 {
+    font-size: clamp(42px, 11vw, 62px);
+    letter-spacing: -2px;
+  }
 }
