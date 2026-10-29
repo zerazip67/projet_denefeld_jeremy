@@ -69,17 +69,18 @@ Set-Location api
 npm run build
 ```
 
-## Déploiement de l’API sur Render
+## Déploiement sur Render
 
-Le `render.yaml` à la racine du dépôt déclare la base PostgreSQL managée et le
-service API. Son `rootDir` est adapté à l’emplacement réel du TP
-(`tp02/tp02/api`). Le Blueprint injecte `DATABASE_URL` depuis la base créée.
-Pour déployer, créez un Blueprint Render à partir du dépôt et appliquez la
-configuration.
+Le `render.yaml` de ce dossier déclare trois ressources : PostgreSQL, l’API
+Node.js et le site Angular statique. Les `rootDir` du Blueprint sont définis
+depuis la racine du dépôt : `tp02/tp02/api` pour l’API et `tp02/tp02` pour le
+site, publié depuis `dist/tp02/browser`. Créez un Blueprint Render à partir du
+dépôt et appliquez la configuration.
 
 ## Compatibilité du frontend
 
 L’API CNAM retourne des mesures (`ville`, `polluant`, `valeur`, `date`), tandis
 que l’interface actuelle du TP utilise des déclarations (`titre`, `type`,
-`lieu`, coordonnées). Le backend est intégré et déployable, mais le frontend
-reste inchangé et n’est pas encore connecté à ce format d’API.
+`lieu`, coordonnées). Le backend est intégré et déployable, mais le frontend reste inchangé et n’est
+pas connecté à ce format d’API. Le frontend conserve donc son mode mock en
+production ; l’API déployée est un service indépendant.

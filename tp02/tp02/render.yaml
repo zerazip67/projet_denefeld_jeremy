@@ -11,7 +11,7 @@ services:
     runtime: node
     plan: free
     region: oregon
-    rootDir: api
+    rootDir: tp02/tp02/api
     buildCommand: npm install --include=dev && npm run build
     startCommand: npm run start
     healthCheckPath: /health
@@ -24,3 +24,14 @@ services:
         fromDatabase:
           name: pollution-db
           property: connectionString
+
+  - type: web
+    name: pollution-front
+    runtime: static
+    rootDir: tp02/tp02
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist/tp02/browser
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
