@@ -12,7 +12,7 @@ services:
     plan: free
     region: oregon
     rootDir: tp02/tp02/api
-    buildCommand: npm install --include=dev && npm run build
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm run start
     healthCheckPath: /health
     envVars:

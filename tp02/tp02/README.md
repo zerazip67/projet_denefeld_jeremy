@@ -44,6 +44,15 @@ L’API écoute sur `http://localhost:3000` :
 À son premier démarrage, l’API synchronise le modèle Sequelize et insère des
 mesures de démonstration si la table est vide.
 
+Pour tester la route depuis PowerShell :
+
+```powershell
+Invoke-RestMethod http://localhost:3000/api/pollutions
+```
+
+La réponse attendue est une liste JSON de mesures avec les champs `id`,
+`ville`, `polluant`, `valeur`, `date` et `description`.
+
 2. Dans un autre terminal, depuis la racine du projet Angular :
 
 ```powershell
