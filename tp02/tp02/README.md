@@ -38,26 +38,23 @@ npm run dev
 L’API écoute sur `http://localhost:3000` :
 
 - `GET /health` vérifie que le serveur fonctionne.
-- `GET /api/pollutions` renvoie les mesures.
-- `GET /api/pollutions/:id` renvoie une mesure par identifiant.
-- `GET /api/signalements` renvoie les déclarations enregistrées.
-- `GET /api/signalements/:id` renvoie une déclaration.
-- `POST /api/signalements` crée une déclaration.
-- `PUT /api/signalements/:id` modifie une déclaration.
-- `DELETE /api/signalements/:id` supprime une déclaration.
-- `POST /api/pollutions` crée une mesure (`ville`, `valeur`, `polluant`,
-  `date` et `description` facultative).
-- `PUT /api/pollutions/:id` remplace une mesure. Les quatre champs principaux
-  sont obligatoires; `description` est facultative.
-- `PATCH /api/pollutions/:id` modifie un ou plusieurs champs.
-- `DELETE /api/pollutions/:id` supprime une mesure.
+- `POST /api/users` crée un utilisateur; `GET /api/users` renvoie la liste.
+- `GET /api/pollutions` et `GET /api/pollutions/:id` listent les déclarations
+  et affichent leur détail.
+- `POST /api/pollutions` crée une déclaration.
+- `PUT /api/pollutions/:id` modifie une déclaration.
+- `DELETE /api/pollutions/:id` supprime une déclaration.
+- `GET /api/mesures` et `GET /api/mesures/:id` gardent l'accès aux mesures
+  pédagogiques historiques (`ville`, `valeur`, `polluant`, `date`).
 
-Les routes acceptent aussi le préfixe singulier `/api/pollution`. Les
-identifiants invalides renvoient `400`, les mesures absentes `404` et les
-données invalides `400`.
-
-À son premier démarrage, l’API synchronise le modèle Sequelize et insère des
+À son premier démarrage, l’API synchronise les modèles Sequelize et insère des
 mesures de démonstration si la table est vide.
+
+La création utilisateur utilise `{ "name", "email", "password" }`. Les
+adresses e-mail sont uniques et les mots de passe sont stockés sous forme de
+hash; ils ne sont jamais inclus dans la réponse de l'API. Les erreurs de
+validation renvoient `400`, les adresses déjà utilisées `409` et les
+identifiants de pollution inconnus `404`.
 
 Pour tester la route depuis PowerShell :
 
@@ -65,12 +62,12 @@ Pour tester la route depuis PowerShell :
 Invoke-RestMethod http://localhost:3000/api/pollutions
 ```
 
-La réponse attendue est une liste JSON de mesures avec les champs `id`,
-`ville`, `polluant`, `valeur`, `date` et `description`.
-Le formulaire Angular utilise `/api/signalements`; chaque déclaration
+Le formulaire Angular utilise `/api/pollutions`; chaque déclaration
 (`titre`, `type`, `description`, `date`, `lieu`, `latitude`, `longitude`,
-`photo`) est stockée dans la table PostgreSQL `signalement`. Cette table est
-créée au démarrage sans modifier ni supprimer la table existante `pollution`.
+`photo`) est stockée dans la table PostgreSQL `signalement`. La liste et la
+création des utilisateurs passent par `/api/users` et la table `users`. Ces
+tables sont créées au démarrage sans supprimer les mesures existantes dans
+`pollution`.
 
 2. Dans un autre terminal, depuis la racine du projet Angular :
 
@@ -108,6 +105,6 @@ dépôt et appliquez la configuration.
 ## Compatibilité du frontend
 
 En production, le frontend utilise l’API Render définie dans
-`src/environments/environment.production.ts`. Les opérations sur les
-déclarations passent par l’API et PostgreSQL; seule l’inscription reste
-simulée localement, car cette API ne fournit pas de service de comptes.
+`src/environments/environment.production.ts`. La création et la liste des
+utilisateurs ainsi que le CRUD des pollutions passent par des services Angular
+et l’API PostgreSQL.

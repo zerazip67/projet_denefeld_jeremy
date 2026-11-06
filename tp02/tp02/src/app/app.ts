@@ -5,6 +5,7 @@ import { PollutionForm } from './components/pollution-form/pollution-form';
 import { SignupForm } from './components/signup-form/signup-form';
 import { Pollution, PollutionInput } from './models/pollution';
 import { PollutionService } from './services/pollution.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import { PollutionService } from './services/pollution.service';
 })
 export class App {
   private readonly pollutionService = inject(PollutionService);
+  private readonly userService = inject(UserService);
   private readonly changeDetector = inject(ChangeDetectorRef);
 
   inscrit = false;
@@ -26,11 +28,19 @@ export class App {
   filtreType = '';
   chargement = false;
   enregistrement = false;
+  nombreUtilisateurs = 0;
   erreur = '';
 
   terminerInscription() {
     this.inscrit = true;
     this.chargerPollutions();
+    this.userService.getAll().subscribe({
+      next: (users) => {
+        this.nombreUtilisateurs = users.length;
+        this.changeDetector.markForCheck();
+      },
+      error: (error: unknown) => this.afficherErreur(error),
+    });
   }
 
   get pollutionsFiltrees(): Pollution[] {

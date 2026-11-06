@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SignupService } from '../../services/signup.service';
+import { UserService } from '../../services/user.service';
 import { SignupResponse } from '../../models/signup';
 
 @Component({
@@ -13,7 +13,7 @@ import { SignupResponse } from '../../models/signup';
 })
 export class SignupForm {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly signupService = inject(SignupService);
+  private readonly userService = inject(UserService);
 
   @Output() inscriptionReussie = new EventEmitter<void>();
 
@@ -37,7 +37,7 @@ export class SignupForm {
     }
 
     this.loading = true;
-    this.signupService.signup(this.form.getRawValue()).subscribe({
+    this.userService.create(this.form.getRawValue()).subscribe({
       next: (response: SignupResponse) => {
         this.loading = false;
         this.successMessage = `Compte créé pour ${response.name} (${response.email}).`;

@@ -7,11 +7,15 @@ import { SignupRequest, SignupResponse } from '../models/signup';
 @Injectable({
   providedIn: 'root',
 })
-export class SignupService {
+export class UserService {
   private readonly http = inject(HttpClient);
-  private readonly signupUrl = `${environment.apiUrl}/auth/signup`;
+  private readonly usersUrl = `${environment.apiUrl}/users`;
 
-  signup(user: SignupRequest): Observable<SignupResponse> {
-    return this.http.post<SignupResponse>(this.signupUrl, user);
+  getAll(): Observable<SignupResponse[]> {
+    return this.http.get<SignupResponse[]>(this.usersUrl);
+  }
+
+  create(user: SignupRequest): Observable<SignupResponse> {
+    return this.http.post<SignupResponse>(this.usersUrl, user);
   }
 }

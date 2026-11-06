@@ -1,22 +1,14 @@
 import { Application, Router } from "express";
-import pollutionController from "../controllers/pollution.controllers";
+import signalementsController from "../controllers/signalements.controllers";
 
 export default (app: Application): void => {
   const router = Router();
 
-  // Route GET /api/pollutions
-  router.get("/", pollutionController.getAll);
+  router.get("/", signalementsController.getAll);
+  router.get("/:id", signalementsController.getById);
+  router.post("/", signalementsController.create);
+  router.put("/:id", signalementsController.update);
+  router.delete("/:id", signalementsController.remove);
 
-  // Route GET /api/pollutions/:id
-  router.get("/:id", pollutionController.getById);
-
-  // Routes CRUD /api/pollutions
-  router.post("/", pollutionController.create);
-  router.put("/:id", pollutionController.update);
-  router.patch("/:id", pollutionController.patch);
-  router.delete("/:id", pollutionController.remove);
-
-  // Exposition sous /api/pollutions et /api/pollution (singulier et pluriel)
   app.use("/api/pollutions", router);
-  app.use("/api/pollution", router);
 };
