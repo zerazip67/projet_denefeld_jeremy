@@ -40,6 +40,21 @@ L’API écoute sur `http://localhost:3000` :
 - `GET /health` vérifie que le serveur fonctionne.
 - `GET /api/pollutions` renvoie les mesures.
 - `GET /api/pollutions/:id` renvoie une mesure par identifiant.
+- `GET /api/signalements` renvoie les déclarations enregistrées.
+- `GET /api/signalements/:id` renvoie une déclaration.
+- `POST /api/signalements` crée une déclaration.
+- `PUT /api/signalements/:id` modifie une déclaration.
+- `DELETE /api/signalements/:id` supprime une déclaration.
+- `POST /api/pollutions` crée une mesure (`ville`, `valeur`, `polluant`,
+  `date` et `description` facultative).
+- `PUT /api/pollutions/:id` remplace une mesure. Les quatre champs principaux
+  sont obligatoires; `description` est facultative.
+- `PATCH /api/pollutions/:id` modifie un ou plusieurs champs.
+- `DELETE /api/pollutions/:id` supprime une mesure.
+
+Les routes acceptent aussi le préfixe singulier `/api/pollution`. Les
+identifiants invalides renvoient `400`, les mesures absentes `404` et les
+données invalides `400`.
 
 À son premier démarrage, l’API synchronise le modèle Sequelize et insère des
 mesures de démonstration si la table est vide.
@@ -52,6 +67,10 @@ Invoke-RestMethod http://localhost:3000/api/pollutions
 
 La réponse attendue est une liste JSON de mesures avec les champs `id`,
 `ville`, `polluant`, `valeur`, `date` et `description`.
+Le formulaire Angular utilise `/api/signalements`; chaque déclaration
+(`titre`, `type`, `description`, `date`, `lieu`, `latitude`, `longitude`,
+`photo`) est stockée dans la table PostgreSQL `signalement`. Cette table est
+créée au démarrage sans modifier ni supprimer la table existante `pollution`.
 
 2. Dans un autre terminal, depuis la racine du projet Angular :
 
@@ -88,8 +107,7 @@ dépôt et appliquez la configuration.
 
 ## Compatibilité du frontend
 
-L’API CNAM retourne des mesures (`ville`, `polluant`, `valeur`, `date`), tandis
-que l’interface actuelle du TP utilise des déclarations (`titre`, `type`,
-`lieu`, coordonnées). Le backend est intégré et déployable, mais le frontend reste inchangé et n’est
-pas connecté à ce format d’API. Le frontend conserve donc son mode mock en
-production ; l’API déployée est un service indépendant.
+En production, le frontend utilise l’API Render définie dans
+`src/environments/environment.production.ts`. Les opérations sur les
+déclarations passent par l’API et PostgreSQL; seule l’inscription reste
+simulée localement, car cette API ne fournit pas de service de comptes.

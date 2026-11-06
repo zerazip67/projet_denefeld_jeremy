@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'https://api.example.com/api',
+  apiUrl: 'https://pollution-api-3102.onrender.com/api',
   mockApi: true,
 };

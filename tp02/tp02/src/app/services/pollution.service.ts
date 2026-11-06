@@ -9,7 +9,7 @@ import { Pollution, PollutionInput } from '../models/pollution';
 })
 export class PollutionService {
   private readonly http = inject(HttpClient);
-  private readonly pollutionUrl = `${environment.apiUrl}/pollutions`;
+  private readonly pollutionUrl = `${environment.apiUrl}/signalements`;
 
   getAll(): Observable<Pollution[]> {
     return this.http.get<Pollution[]>(this.pollutionUrl);

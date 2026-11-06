@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import { databaseUrl } from "../config";
 import definePollutions, { PollutionModel } from "./pollutions.model";
+import defineSignalements, { SignalementModel } from "./signalements.model";
 
 const isLocalHost = databaseUrl.includes("localhost") || databaseUrl.includes("127.0.0.1");
 const useSsl =
@@ -27,12 +28,14 @@ export interface Database {
   Sequelize: typeof Sequelize;
   sequelize: Sequelize;
   pollutions: PollutionModel;
+  signalements: SignalementModel;
 }
 
 export const db: Database = {
   Sequelize,
   sequelize,
-  pollutions: definePollutions(sequelize, Sequelize)
+  pollutions: definePollutions(sequelize, Sequelize),
+  signalements: defineSignalements(sequelize)
 };
 
 export default db;
