@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PollutionForm } from './components/pollution-form/pollution-form';
 import { SignupForm } from './components/signup-form/signup-form';
@@ -15,6 +15,7 @@ import { PollutionService } from './services/pollution.service';
 })
 export class App {
   private readonly pollutionService = inject(PollutionService);
+  private readonly changeDetector = inject(ChangeDetectorRef);
 
   inscrit = false;
   pollutions: Pollution[] = [];
@@ -50,6 +51,7 @@ export class App {
       next: (pollutions) => {
         this.pollutions = pollutions;
         this.chargement = false;
+        this.changeDetector.markForCheck();
       },
       error: (error: unknown) => this.afficherErreur(error),
     });
@@ -74,6 +76,7 @@ export class App {
         }
         this.annulerEdition();
         this.enregistrement = false;
+        this.changeDetector.markForCheck();
       },
       error: (error: unknown) => {
         this.enregistrement = false;
@@ -90,6 +93,7 @@ export class App {
         if (this.pollutionSelectionnee?.id === pollution.id) {
           this.pollutionSelectionnee = null;
         }
+        this.changeDetector.markForCheck();
       },
       error: (error: unknown) => this.afficherErreur(error),
     });
@@ -101,6 +105,7 @@ export class App {
       next: (detail) => {
         this.pollutionSelectionnee = detail;
         this.pollutionEnEdition = null;
+        this.changeDetector.markForCheck();
       },
       error: (error: unknown) => this.afficherErreur(error),
     });
@@ -133,5 +138,6 @@ export class App {
     } else {
       this.erreur = 'Une erreur inattendue est survenue.';
     }
+    this.changeDetector.markForCheck();
   }
 }
