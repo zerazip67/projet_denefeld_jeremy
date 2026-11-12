@@ -3,14 +3,22 @@ import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PollutionForm } from './components/pollution-form/pollution-form';
 import { SignupForm } from './components/signup-form/signup-form';
+import { HighlightPollutionDirective } from './directives/highlight-pollution.directive';
 import { Pollution, PollutionInput } from './models/pollution';
+import { PollutionLevelPipe } from './pipes/pollution-level.pipe';
 import { PollutionService } from './services/pollution.service';
 import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule, PollutionForm, SignupForm],
+  imports: [
+    FormsModule,
+    PollutionForm,
+    SignupForm,
+    HighlightPollutionDirective,
+    PollutionLevelPipe,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

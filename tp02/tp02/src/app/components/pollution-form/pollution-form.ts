@@ -16,6 +16,10 @@ export class PollutionForm implements OnChanges {
   @Output() declarationEnvoyee = new EventEmitter<PollutionInput>();
 
   formulaire = this.fb.group({
+    niveau: [
+      0,
+      [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)],
+    ],
     titre: ['', Validators.required],
     type: ['', Validators.required],
     description: ['', Validators.required],
@@ -37,6 +41,7 @@ export class PollutionForm implements OnChanges {
       this.formulaire.patchValue(this.pollution);
     } else {
       this.formulaire.reset({
+        niveau: 0,
         titre: '',
         type: '',
         description: '',

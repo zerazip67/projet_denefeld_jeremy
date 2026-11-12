@@ -63,8 +63,12 @@ Invoke-RestMethod http://localhost:3000/api/pollutions
 ```
 
 Le formulaire Angular utilise `/api/pollutions`; chaque déclaration
-(`titre`, `type`, `description`, `date`, `lieu`, `latitude`, `longitude`,
-`photo`) est stockée dans la table PostgreSQL `signalement`. La liste et la
+(`niveau`, `titre`, `type`, `description`, `date`, `lieu`, `latitude`,
+`longitude`, `photo`) est stockée dans la table PostgreSQL `signalement`.
+`niveau` est un entier positif ou nul; la pipe `pollutionLevel` le classe et la
+directive `appHighlightPollution` colore son statut dans la vue détaillée. La
+colonne est ajoutée à la table existante au démarrage sans perdre les lignes.
+La liste et la
 création des utilisateurs passent par `/api/users` et la table `users`. Ces
 tables sont créées au démarrage sans supprimer les mesures existantes dans
 `pollution`.

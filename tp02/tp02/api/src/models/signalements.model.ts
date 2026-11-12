@@ -2,6 +2,7 @@ import { DataTypes, Model, ModelStatic, Optional, Sequelize } from "sequelize";
 
 export interface SignalementAttributes {
   id: number;
+  niveau: number;
   titre: string;
   type: string;
   description: string;
@@ -30,6 +31,14 @@ export default function defineSignalements(sequelize: Sequelize): SignalementMod
         autoIncrement: true,
         primaryKey: true,
         allowNull: false
+      },
+      niveau: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+        validate: {
+          min: 0
+        }
       },
       titre: {
         type: DataTypes.STRING,

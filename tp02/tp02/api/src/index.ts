@@ -38,6 +38,9 @@ const HOST = "0.0.0.0";
 const startServer = async (): Promise<void> => {
   await db.sequelize.authenticate();
   await db.sequelize.sync();
+  await db.sequelize.query(
+    'ALTER TABLE "signalement" ADD COLUMN IF NOT EXISTS "niveau" INTEGER NOT NULL DEFAULT 0'
+  );
   console.log("Synced db.");
 
   const count = await db.pollutions.count();

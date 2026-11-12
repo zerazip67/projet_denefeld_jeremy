@@ -21,6 +21,7 @@
           <p class="etape">DETAIL DE LA POLLUTION</p>
           <h2>{{ pollution.titre }}</h2>
           <dl>
+            <div><dt>Dangerosité</dt><dd><span [appHighlightPollution]="pollution.niveau">{{ pollution.niveau | pollutionLevel }}</span></dd></div>
             <div><dt>Type</dt><dd>{{ pollution.type }}</dd></div>
             <div><dt>Date</dt><dd>{{ pollution.date }}</dd></div>
             <div><dt>Lieu</dt><dd>{{ pollution.lieu }}</dd></div>
