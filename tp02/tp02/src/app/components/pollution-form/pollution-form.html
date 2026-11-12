@@ -1,6 +1,6 @@
 <section class="carte">
-  <p class="etape">ETAPE 1</p>
-  <h2>Informations du signalement</h2>
+  <p class="etape">{{ pollution ? 'MODIFICATION' : 'NOUVELLE POLLUTION' }}</p>
+  <h2>{{ pollution ? 'Modifier le signalement' : 'Informations du signalement' }}</h2>
 
   <form [formGroup]="formulaire" (ngSubmit)="envoyer()">
     <label>
@@ -81,6 +81,6 @@
 
     <p class="note">* Champs obligatoires</p>
 
-    <button type="submit">Valider le signalement</button>
+    <button type="submit">{{ pollution ? 'Enregistrer les modifications' : 'Ajouter le signalement' }}</button>
   </form>
 </section>

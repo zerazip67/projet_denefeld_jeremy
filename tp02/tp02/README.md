@@ -1,59 +1,110 @@
-# Tp02
+# TP02 — Application Pollution
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.24.
+Ce projet contient l’application Angular du TP et l’API pédagogique CNAM
+(Node.js, Express, TypeScript, Sequelize et PostgreSQL) dans `api/`.
 
-## Development server
+## Structure
 
-To start a local development server, run:
-
-```bash
-ng serve
+```text
+├── api/                 # API Node.js / TypeScript / Express / Sequelize
+│   └── src/
+│       ├── config.ts
+│       ├── controllers/
+│       ├── models/
+│       └── routes/
+├── public/              # Ressources statiques Angular
+└── src/                 # Application Angular
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Démarrage local
 
-## Code scaffolding
+Prérequis : Node.js 22.22.3 et npm (version également configurée pour Render).
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. Démarrez PostgreSQL et configurez l’API. Depuis le dossier `api` :
 
-```bash
-ng generate component component-name
+```powershell
+npm ci
+Copy-Item .env.example .env
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Renseignez `DATABASE_URL` dans `api/.env`, ou définissez `DB_HOST`, `DB_PORT`,
+`DB_USER`, `DB_PASSWORD` et `DB_NAME`. Le fichier `.env` est ignoré par Git.
+Puis démarrez le backend :
 
-```bash
-ng generate --help
+```powershell
+npm run dev
 ```
 
-## Building
+L’API écoute sur `http://localhost:3000` :
 
-To build the project run:
+- `GET /health` vérifie que le serveur fonctionne.
+- `POST /api/users` crée un utilisateur; `GET /api/users` renvoie la liste.
+- `GET /api/pollutions` et `GET /api/pollutions/:id` listent les déclarations
+  et affichent leur détail.
+- `POST /api/pollutions` crée une déclaration.
+- `PUT /api/pollutions/:id` modifie une déclaration.
+- `DELETE /api/pollutions/:id` supprime une déclaration.
+- `GET /api/mesures` et `GET /api/mesures/:id` gardent l'accès aux mesures
+  pédagogiques historiques (`ville`, `valeur`, `polluant`, `date`).
 
-```bash
-ng build
+À son premier démarrage, l’API synchronise les modèles Sequelize et insère des
+mesures de démonstration si la table est vide.
+
+La création utilisateur utilise `{ "name", "email", "password" }`. Les
+adresses e-mail sont uniques et les mots de passe sont stockés sous forme de
+hash; ils ne sont jamais inclus dans la réponse de l'API. Les erreurs de
+validation renvoient `400`, les adresses déjà utilisées `409` et les
+identifiants de pollution inconnus `404`.
+
+Pour tester la route depuis PowerShell :
+
+```powershell
+Invoke-RestMethod http://localhost:3000/api/pollutions
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Le formulaire Angular utilise `/api/pollutions`; chaque déclaration
+(`titre`, `type`, `description`, `date`, `lieu`, `latitude`, `longitude`,
+`photo`) est stockée dans la table PostgreSQL `signalement`. La liste et la
+création des utilisateurs passent par `/api/users` et la table `users`. Ces
+tables sont créées au démarrage sans supprimer les mesures existantes dans
+`pollution`.
 
-## Running unit tests
+2. Dans un autre terminal, depuis la racine du projet Angular :
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```powershell
+npm ci
+npm start
 ```
 
-## Running end-to-end tests
+L’application s’ouvre sur `http://localhost:4200`.
 
-For end-to-end (e2e) testing, run:
+## Tests et compilation
 
-```bash
-ng e2e
+Depuis la racine Angular :
+
+```powershell
+npm test -- --watch=false
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Pour compiler le backend :
 
-## Additional Resources
+```powershell
+Set-Location api
+npm run build
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Déploiement sur Render
+
+Le `render.yaml` de ce dossier déclare trois ressources : PostgreSQL, l’API
+Node.js et le site Angular statique. Les `rootDir` du Blueprint sont définis
+depuis la racine du dépôt : `tp02/tp02/api` pour l’API et `tp02/tp02` pour le
+site, publié depuis `dist/tp02/browser`. Créez un Blueprint Render à partir du
+dépôt et appliquez la configuration.
+
+## Compatibilité du frontend
+
+En production, le frontend utilise l’API Render définie dans
+`src/environments/environment.production.ts`. La création et la liste des
+utilisateurs ainsi que le CRUD des pollutions passent par des services Angular
+et l’API PostgreSQL.

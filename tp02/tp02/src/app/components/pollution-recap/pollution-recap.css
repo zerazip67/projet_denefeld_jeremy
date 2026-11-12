@@ -1,20 +1,21 @@
 .carte {
-  padding: 30px;
-  background: white;
-  border: 1px solid #dfe8e0;
-  border-radius: 18px;
-  box-shadow: 0 8px 25px #183e2b0d;
+  padding: 36px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid #dfe3d9;
+  border-top: 4px solid var(--acid);
+  box-shadow: var(--shadow);
 }
 
 .etape {
-  color: #d17a35;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  color: var(--clay);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
 }
 
 .intro {
-  color: #68766e;
+  color: var(--muted);
 }
 
 .resume {
@@ -23,24 +24,27 @@
 
 .libelle {
   margin-bottom: 6px;
-  color: #68766e;
+  color: var(--muted);
   font-size: 11px;
   font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
 }
 
 h3 {
-  font-size: 24px;
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .grille {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: 17px;
   margin: 20px 0;
-  padding: 20px;
-  border-radius: 12px;
-  background: #f2f5ef;
+  padding: 22px;
+  border-left: 3px solid var(--acid);
+  background: #f2f3e9;
 }
 
 .grille p:not(.libelle) {
@@ -56,28 +60,32 @@ img {
   display: block;
   max-width: 100%;
   max-height: 350px;
-  border-radius: 10px;
+  border: 1px solid var(--line);
 }
 
 button {
   width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 9px;
-  background: #176b50;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
+  min-height: 48px;
+  padding: 12px 18px;
+  border: 1px solid var(--green);
+  border-radius: 3px;
+  background: var(--green);
+  color: #fffefa;
+  font-size: 14px;
+  font-weight: 650;
   cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
 button:hover {
-  background: #10543e;
+  background: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 16px #183b2e20;
 }
 
 @media (max-width: 500px) {
   .carte {
-    padding: 20px;
+    padding: 25px 22px;
   }
 
   .grille {
