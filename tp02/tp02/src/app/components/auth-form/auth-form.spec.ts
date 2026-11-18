@@ -1,7 +1,16 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
+import { Component } from '@angular/core';
+import { provideRouter, Router } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 import { AuthForm } from './auth-form';
+import { AuthService } from '../../services/auth.service';
+
+@Component({
+  standalone: true,
+  template: '',
+})
+class DashboardStub {}
 
 describe('AuthForm', () => {
   let httpTesting: HttpTestingController;
@@ -9,7 +18,11 @@ describe('AuthForm', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AuthForm],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideRouter([{ path: 'dashboard', component: DashboardStub }]),
+      ],
     }).compileComponents();
 
     httpTesting = TestBed.inject(HttpTestingController);
@@ -17,13 +30,9 @@ describe('AuthForm', () => {
 
   afterEach(() => httpTesting.verify());
 
-  it('authenticates with the login endpoint', () => {
+  it('authenticates with the login endpoint and redirects to the dashboard', async () => {
     const fixture = TestBed.createComponent(AuthForm);
     const component = fixture.componentInstance;
-    let authenticated = false;
-    component.authentificationReussie.subscribe(() => {
-      authenticated = true;
-    });
 
     component.form.setValue({
       name: '',
@@ -40,7 +49,9 @@ describe('AuthForm', () => {
     });
     request.flush({ id: 1, name: 'Pollueur', email: 'pollueur@example.com' });
 
-    expect(authenticated).toBe(true);
+    await fixture.whenStable();
+    expect(TestBed.inject(Router).url).toBe('/dashboard');
+    expect(TestBed.inject(AuthService).isAuthenticated()).toBe(true);
   });
 
   it('requires a name and a long password when switching to signup', () => {

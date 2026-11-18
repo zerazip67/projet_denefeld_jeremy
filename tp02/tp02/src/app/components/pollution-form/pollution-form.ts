@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, Output, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  inject,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Pollution, PollutionInput } from '../../models/pollution';
 
@@ -8,6 +16,7 @@ import { Pollution, PollutionInput } from '../../models/pollution';
   imports: [ReactiveFormsModule],
   templateUrl: './pollution-form.html',
   styleUrl: './pollution-form.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PollutionForm implements OnChanges {
   private fb = inject(FormBuilder);

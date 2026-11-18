@@ -1,17 +1,12 @@
-import { Component } from '@angular/core';
-import { PollutionDashboard } from './components/pollution-dashboard/pollution-dashboard';
-import { AuthForm } from './components/auth-form/auth-form';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AuthForm, PollutionDashboard],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  inscrit = false;
-
-  terminerInscription() {
-    this.inscrit = true;
-  }
 }

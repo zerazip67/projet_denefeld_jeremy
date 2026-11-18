@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
-import { SignupResponse } from '../../models/signup';
 
 @Component({
   selector: 'app-auth-form',
@@ -10,16 +11,18 @@ import { SignupResponse } from '../../models/signup';
   imports: [ReactiveFormsModule],
   templateUrl: './auth-form.html',
   styleUrl: './auth-form.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthForm {
   private readonly formBuilder = inject(FormBuilder);
   private readonly userService = inject(UserService);
-
-  @Output() authentificationReussie = new EventEmitter<void>();
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly changeDetector = inject(ChangeDetectorRef);
 
   mode: 'login' | 'signup' = 'login';
   loading = false;
-  successMessage = '';
   errorMessage = '';
 
   readonly form = this.formBuilder.nonNullable.group({
@@ -45,13 +48,11 @@ export class AuthForm {
     this.form.reset();
     this.form.controls.name.updateValueAndValidity();
     this.form.controls.password.updateValueAndValidity();
-    this.successMessage = '';
     this.errorMessage = '';
   }
 
   submit(): void {
     this.form.markAllAsTouched();
-    this.successMessage = '';
     this.errorMessage = '';
 
     if (this.form.invalid || this.loading) {
@@ -66,14 +67,16 @@ export class AuthForm {
         : this.userService.login({ email, password });
 
     request.subscribe({
-      next: (response: SignupResponse) => {
+      next: () => {
         this.loading = false;
-        this.successMessage =
-          this.mode === 'signup'
-            ? `Compte créé pour ${response.name} (${response.email}).`
-            : `Connexion réussie pour ${response.name}.`;
+        this.authService.setAuthenticated(true);
         this.form.reset();
-        this.authentificationReussie.emit();
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+        const destination =
+          returnUrl?.startsWith('/') && !returnUrl.startsWith('//')
+            ? returnUrl
+            : '/dashboard';
+        void this.router.navigateByUrl(destination);
       },
       error: (error: HttpErrorResponse) => {
         this.loading = false;
@@ -81,6 +84,7 @@ export class AuthForm {
           typeof error.error?.message === 'string'
             ? error.error.message
             : `${this.mode === 'login' ? 'La connexion' : "L'inscription"} a échoué (HTTP ${error.status || 'inconnu'}).`;
+        this.changeDetector.markForCheck();
       },
     });
   }

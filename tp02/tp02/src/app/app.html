@@ -2,15 +2,9 @@
   <header>
     <div>
       <h1>Déclarer une pollution</h1>
-      <p class="intro">
-        {{ inscrit ? 'Gérez les déclarations de pollution.' : 'Connectez-vous ou créez un compte pour continuer.' }}
-      </p>
+      <p class="intro">Connectez-vous pour gérer les déclarations de pollution.</p>
     </div>
   </header>
 
-  @if (!inscrit) {
-    <app-auth-form (authentificationReussie)="terminerInscription()" />
-  } @else {
-    <app-pollution-dashboard />
-  }
+  <router-outlet />
 </main>

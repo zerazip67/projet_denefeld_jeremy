@@ -1,5 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PollutionForm } from '../pollution-form/pollution-form';
 import { HighlightPollutionDirective } from '../../directives/highlight-pollution.directive';
@@ -14,6 +20,7 @@ import { UserService } from '../../services/user.service';
   imports: [FormsModule, PollutionForm, HighlightPollutionDirective, PollutionLevelPipe],
   templateUrl: './pollution-dashboard.html',
   styleUrl: './pollution-dashboard.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PollutionDashboard implements OnInit {
   private readonly pollutionService = inject(PollutionService);

@@ -100,10 +100,6 @@ button:disabled {
   background: #285b460a;
 }
 
-.success {
-  color: var(--green-dark);
-}
-
 .auth-switch {
   margin: 20px 0 0;
   color: var(--muted);
