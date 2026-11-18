@@ -1,0 +1,64 @@
+<section class="signup-card">
+  <p class="eyebrow">EXERCICE 02</p>
+  <h2>{{ mode === 'login' ? 'Connexion' : 'Créer un compte' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    @if (mode === 'signup') {
+      <label>
+        Nom
+        <input type="text" formControlName="name" autocomplete="name">
+        @if (form.controls.name.touched && form.controls.name.hasError('required')) {
+          <small>Le nom est obligatoire.</small>
+        }
+      </label>
+    }
+
+    <label>
+      Adresse e-mail
+      <input type="email" formControlName="email" autocomplete="email">
+      @if (form.controls.email.touched && form.controls.email.hasError('required')) {
+        <small>L'adresse e-mail est obligatoire.</small>
+      } @else if (form.controls.email.touched && form.controls.email.hasError('email')) {
+        <small>Saisissez une adresse e-mail valide.</small>
+      }
+    </label>
+
+    <label>
+      Mot de passe
+      <input
+        type="password"
+        formControlName="password"
+        [attr.autocomplete]="mode === 'login' ? 'current-password' : 'new-password'">
+      @if (form.controls.password.touched && form.controls.password.hasError('required')) {
+        <small>Le mot de passe est obligatoire.</small>
+      } @else if (mode === 'signup' && form.controls.password.touched && form.controls.password.hasError('minlength')) {
+        <small>Le mot de passe doit contenir au moins 8 caractères.</small>
+      }
+    </label>
+
+    <button type="submit" [disabled]="loading">
+      @if (loading) {
+        {{ mode === 'login' ? 'Connexion en cours...' : 'Inscription en cours...' }}
+      } @else {
+        {{ mode === 'login' ? 'Se connecter' : "S'inscrire" }}
+      }
+    </button>
+  </form>
+
+  <p class="auth-switch">
+    @if (mode === 'login') {
+      Pas encore de compte ?
+      <button class="mode-switch" type="button" [disabled]="loading" (click)="changerMode()">Créer un compte</button>
+    } @else {
+      Déjà un compte ?
+      <button class="mode-switch" type="button" [disabled]="loading" (click)="changerMode()">Se connecter</button>
+    }
+  </p>
+
+  @if (successMessage) {
+    <p class="feedback success" role="status">{{ successMessage }}</p>
+  }
+  @if (errorMessage) {
+    <p class="feedback error" role="alert">{{ errorMessage }}</p>
+  }
+</section>
