@@ -1,5 +1,6 @@
 export interface Pollution {
   id: number;
+  niveau: number;
   titre: string;
   type: string;
   description: string;

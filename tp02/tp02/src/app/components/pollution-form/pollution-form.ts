@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, Output, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  inject,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Pollution, PollutionInput } from '../../models/pollution';
 
@@ -8,6 +16,7 @@ import { Pollution, PollutionInput } from '../../models/pollution';
   imports: [ReactiveFormsModule],
   templateUrl: './pollution-form.html',
   styleUrl: './pollution-form.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PollutionForm implements OnChanges {
   private fb = inject(FormBuilder);
@@ -16,6 +25,10 @@ export class PollutionForm implements OnChanges {
   @Output() declarationEnvoyee = new EventEmitter<PollutionInput>();
 
   formulaire = this.fb.group({
+    niveau: [
+      0,
+      [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)],
+    ],
     titre: ['', Validators.required],
     type: ['', Validators.required],
     description: ['', Validators.required],
@@ -37,6 +50,7 @@ export class PollutionForm implements OnChanges {
       this.formulaire.patchValue(this.pollution);
     } else {
       this.formulaire.reset({
+        niveau: 0,
         titre: '',
         type: '',
         description: '',

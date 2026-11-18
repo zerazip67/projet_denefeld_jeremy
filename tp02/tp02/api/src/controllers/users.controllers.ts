@@ -1,4 +1,4 @@
-import { randomBytes, scryptSync } from "crypto";
+import { randomBytes, scryptSync, timingSafeEqual } from "crypto";
 import { Request, Response } from "express";
 import { UniqueConstraintError } from "sequelize";
 import db from "../models";
@@ -7,6 +7,11 @@ const Users = db.users;
 
 interface UserInput {
   name: string;
+  email: string;
+  password: string;
+}
+
+interface LoginInput {
   email: string;
   password: string;
 }
@@ -30,6 +35,27 @@ const validatePayload = (body: unknown): UserInput | null => {
 
   return {
     name: payload.name.trim(),
+    email: payload.email.trim().toLowerCase(),
+    password: payload.password
+  };
+};
+
+const validateLoginPayload = (body: unknown): LoginInput | null => {
+  if (typeof body !== "object" || body === null || Array.isArray(body)) {
+    return null;
+  }
+
+  const payload = body as Record<string, unknown>;
+  if (
+    typeof payload.email !== "string" ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email.trim()) ||
+    typeof payload.password !== "string" ||
+    !payload.password
+  ) {
+    return null;
+  }
+
+  return {
     email: payload.email.trim().toLowerCase(),
     password: payload.password
   };
@@ -82,4 +108,37 @@ export const create = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export default { getAll, create };
+export const login = async (req: Request, res: Response): Promise<void> => {
+  const input = validateLoginPayload(req.body);
+  if (!input) {
+    res.status(400).json({ message: "Fournissez une adresse e-mail valide et un mot de passe." });
+    return;
+  }
+
+  try {
+    const user = await Users.findOne({ where: { email: input.email } });
+    const [salt, storedHash] = user?.passwordHash.split(":") ?? [];
+    if (!user || !salt || !storedHash || !/^[a-f0-9]{128}$/i.test(storedHash)) {
+      res.status(401).json({ message: "Adresse e-mail ou mot de passe incorrect." });
+      return;
+    }
+
+    const expectedHash = Buffer.from(storedHash, "hex");
+    const actualHash = scryptSync(input.password, salt, expectedHash.length);
+    if (!timingSafeEqual(actualHash, expectedHash)) {
+      res.status(401).json({ message: "Adresse e-mail ou mot de passe incorrect." });
+      return;
+    }
+
+    res.status(200).json({
+      id: user.id,
+      name: user.name,
+      email: user.email
+    });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    res.status(500).json({ message: "Erreur lors de la connexion: " + message });
+  }
+};
+
+export default { getAll, create, login };

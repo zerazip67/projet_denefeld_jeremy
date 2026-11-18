@@ -1,8 +1,21 @@
 import { Routes } from '@angular/router';
-import { PollutionForm } from './components/pollution-form/pollution-form';
-import { PollutionRecap } from './components/pollution-recap/pollution-recap';
+import { authGuard, guestGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: PollutionForm },
-  { path: 'recap', component: PollutionRecap },
+  {
+    path: 'auth',
+    canActivate: [guestGuard],
+    loadComponent: () =>
+      import('./components/auth-form/auth-form').then((module) => module.AuthForm),
+  },
+  {
+    path: 'dashboard',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./components/pollution-dashboard/pollution-dashboard').then(
+        (module) => module.PollutionDashboard,
+      ),
+  },
+  { path: '', pathMatch: 'full', redirectTo: 'auth' },
+  { path: '**', redirectTo: 'auth' },
 ];

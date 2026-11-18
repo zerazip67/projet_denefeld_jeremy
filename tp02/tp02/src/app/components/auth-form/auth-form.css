@@ -100,8 +100,31 @@ button:disabled {
   background: #285b460a;
 }
 
-.success {
+.auth-switch {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.mode-switch {
+  min-height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--green);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.mode-switch:hover:not(:disabled) {
+  background: transparent;
   color: var(--green-dark);
+  transform: none;
+  box-shadow: none;
 }
 
 @media (max-width: 600px) {

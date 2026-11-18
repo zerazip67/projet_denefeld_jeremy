@@ -22,6 +22,9 @@ const validatePayload = (body: unknown): SignalementInput | null => {
 
   const payload = body as Record<string, unknown>;
   if (
+    typeof payload.niveau !== "number" ||
+    !Number.isInteger(payload.niveau) ||
+    payload.niveau < 0 ||
     typeof payload.titre !== "string" ||
     !payload.titre.trim() ||
     typeof payload.type !== "string" ||
@@ -45,6 +48,7 @@ const validatePayload = (body: unknown): SignalementInput | null => {
   }
 
   return {
+    niveau: payload.niveau,
     titre: payload.titre.trim(),
     type: payload.type.trim(),
     description: payload.description,
@@ -59,7 +63,7 @@ const validatePayload = (body: unknown): SignalementInput | null => {
 const invalidPayload = (res: Response): void => {
   res.status(400).json({
     message:
-      "Fournissez un titre, type, description, date (AAAA-MM-JJ), lieu, latitude (-90 à 90), longitude (-180 à 180) et une URL de photo facultative."
+      "Fournissez un niveau entier positif ou nul, un titre, type, description, date (AAAA-MM-JJ), lieu, latitude (-90 à 90), longitude (-180 à 180) et une URL de photo facultative."
   });
 };
 

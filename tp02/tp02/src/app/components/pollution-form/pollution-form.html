@@ -4,6 +4,15 @@
 
   <form [formGroup]="formulaire" (ngSubmit)="envoyer()">
     <label>
+      Indice de dangerosité *
+      <input type="number" formControlName="niveau" min="0" step="1" placeholder="Ex. 35">
+
+      @if (formulaire.controls.niveau.touched && formulaire.controls.niveau.invalid) {
+        <small>Saisissez un entier positif ou nul.</small>
+      }
+    </label>
+
+    <label>
       Titre *
       <input type="text" formControlName="titre" placeholder="Ex. Dechets pres d'une riviere">
 
